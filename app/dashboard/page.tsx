@@ -110,9 +110,11 @@ export default function DashboardPage() {
 
   if (error) {
     return (
-      <div>
-        <h2> Error loading boards</h2>
-        <p>{error}</p>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-xl font-bold text-red-600 mb-2">Error loading boards</h2>
+          <p className="text-gray-600">{error}</p>
+        </div>
       </div>
     );
   }

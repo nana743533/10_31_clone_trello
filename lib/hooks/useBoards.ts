@@ -19,20 +19,21 @@ export function useBoards() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (user) {
+    if (user && supabase) {
       loadBoards();
     }
   }, [user, supabase]);
 
   async function loadBoards() {
-    if (!user) return;
+    if (!user || !supabase) return;
 
     try {
       setLoading(true);
       setError(null);
-      const data = await boardService.getBoards(supabase!, user.id);
+      const data = await boardService.getBoards(supabase, user.id);
       setBoards(data);
     } catch (err) {
+      console.error("Error loading boards:", err);
       setError(err instanceof Error ? err.message : "Failed to load boards.");
     } finally {
       setLoading(false);

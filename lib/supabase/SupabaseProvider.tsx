@@ -24,11 +24,17 @@ export default function SupabaseProvider({
 
   useEffect(() => {
     if (!session) return;
+    
     const client = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
-        accessToken: () => session?.getToken(),
+        global: {
+          headers: async () => {
+            const token = await session.getToken({ template: "supabase" });
+            return token ? { Authorization: `Bearer ${token}` } : {};
+          },
+        },
       }
     );
 
