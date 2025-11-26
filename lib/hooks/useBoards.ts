@@ -195,7 +195,6 @@ export function useBoard(boardId: string) {
         title,
         board_id: board.id,
         sort_order: columns.length,
-        user_id: user.id,
       });
 
       setColumns((prev) => [...prev, { ...newColumn, tasks: [] }]);

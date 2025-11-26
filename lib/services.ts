@@ -80,7 +80,10 @@ export const columnService = {
   ): Promise<Column> {
     const { data, error } = await supabase
       .from("columns")
-      .insert(column)
+      .insert({
+        ...column,
+        created_at: new Date().toISOString(),
+      })
       .select()
       .single();
 
@@ -211,7 +214,6 @@ export const boardDataService = {
         columnService.createColumn(supabase, {
           ...column,
           board_id: board.id,
-          user_id: boardData.userId,
         })
       )
     );
