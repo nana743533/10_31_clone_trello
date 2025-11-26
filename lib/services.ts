@@ -80,10 +80,7 @@ export const columnService = {
   ): Promise<Column> {
     const { data, error } = await supabase
       .from("columns")
-      .insert({
-        ...column,
-        created_at: new Date().toISOString(),
-      })
+      .insert(column)
       .select()
       .single();
 
